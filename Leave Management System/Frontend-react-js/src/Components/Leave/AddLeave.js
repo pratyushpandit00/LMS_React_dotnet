@@ -98,9 +98,9 @@ export default class AddLeave extends React.Component{
 
         }
        
-        saveLeaves = async (e) =>
+        saveLeaves = async () =>
         {
-            e.preventDefault();
+            //e.preventDefault();
 
 
 

@@ -74,6 +74,8 @@ export default class AddEmp extends React.Component{
     {
         this.setState({noOfLeaves:e.target.value})
     }
+
+    
     formValidation =() =>{
 
         const {fname,lname,email,password,conPwd, date, gen,ph,manID, noOfLeaves}=this.state;
@@ -110,6 +112,7 @@ export default class AddEmp extends React.Component{
         if(ph.trim().length == 0){
             errors.ph="Please Mobile no.";
             isValid=false;
+        }
         if(manID.trim().length == 0){
             errors.manID ="Please Manager ID";
             isValid=false;
@@ -118,7 +121,7 @@ export default class AddEmp extends React.Component{
             errors.noOfLeaves ="Please Enter Number of Leaves";
             isValid=false;
         }
-        }
+        
         this.setState({errors});
         console.log(isValid)
         console.log(errors)
@@ -135,12 +138,12 @@ export default class AddEmp extends React.Component{
 
     }
 
-    saveEmployee=(e)=>
+    async saveEmployee()
     {
-        e.preventDefault();
+       // e.preventDefault();
         console.log('Save Employee method called')
         console.log(this.state.fname,this.state.lname,this.state.ph,this.state.email,this.state.password,this.state.conPwd,this.state.date,this.state.gen,this.state.ph,this.state.ManID,this.state.noOfLeaves)
-        const result=axios.post("http://localhost:46044/api/Employees",
+        const result= await axios.post("http://localhost:46044/api/Employees",
         {
             "empId":0,
             "fname":this.state.fname,

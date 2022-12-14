@@ -73,12 +73,13 @@ onFormSubmit =(e) =>{
     e.preventDefault();
     const isValid =this.formValidation();
     if(isValid ==true){
+
         this.handleSubmit();
     }
 
 }
 
-  handleSubmit=()=>
+  async handleSubmit()
   {
   //console.log('handle submit called')
   //event.preventDefault();
@@ -95,16 +96,23 @@ onFormSubmit =(e) =>{
   //console.log(email,password,role);
   const obj={userEmail:this.state.email};
 
- const result= axios.post('http://localhost:46044/api/Logins',
+ const result=await axios.post('http://localhost:46044/api/Logins',
    {"email":this.state.email,
     "password":this.state.password,
     "role":this.state.role
+   })
+   .then(res=> {
+       console.log(res.data);
+       alert(res.data);
+    //   localStorage.setItem("result",res.data);
+    //  result = res.data;
+   return res.data;
   });
-  //  .then(res=> {
-  //      console.log(res.data);
-  //  return res.data;
+  console.log(this.state.email,this.state.password, this.state.role);
+  // result = localStorage.getItem("result");
 
-   if( result===true && this.state.role==="Manager" ){
+
+  if( result===true && this.state.role==="Manager"){
     RedirectPath="/MgrDashboard";
     localStorage.setItem("token","qwerty");
     localStorage.setItem('MgrEmail',this.state.email);
@@ -119,17 +127,19 @@ onFormSubmit =(e) =>{
       localStorage.setItem('email',this.state.email);
       localStorage.setItem("token","qwerty");
 
+
+
       alert("Login Successsful");
          window.location= "/Dashboard";
      
     }
     else{
-
-        var error = "Enter the correct Credentials" ;
+       
         alert('invalid Credetials')
     
     }
 }
+
  
 
 
